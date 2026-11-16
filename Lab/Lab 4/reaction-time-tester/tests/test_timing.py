@@ -35,7 +35,6 @@ class TimingTests(unittest.TestCase):
         screen = pygame.Surface((600, 400))
         engine.render(screen)
         self.assertEqual(screen.get_at((0, 0))[:3], GREEN)
-        # Simulate the first green frame being presented after rendering.
         self.ticks.return_value = 2520
         engine.on_frame_presented()
 
