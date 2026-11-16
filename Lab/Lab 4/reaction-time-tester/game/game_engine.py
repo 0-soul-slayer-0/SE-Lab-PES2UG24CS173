@@ -2,7 +2,6 @@ import pygame
 from .round import Round
 from .sound_feedback import SoundFeedback
 
-# Game Engine
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -11,7 +10,6 @@ GREEN = (40, 180, 90)
 BLUE = (50, 90, 170)
 RED = (180, 50, 50)
 
-# Each preset defines (valid rounds, minimum wait ms, maximum wait ms).
 DIFFICULTIES = {
     "Easy": (3, 1000, 2000),
     "Medium": (5, 1000, 3000),
@@ -32,7 +30,7 @@ class GameEngine:
         self.reaction_times = []
 
         self.result_shown_at = None
-        self.result_pause_ms = 800  # brief pause on the result screen between rounds
+        self.result_pause_ms = 800
 
         self.font = pygame.font.SysFont("Arial", 30)
         self.big_font = pygame.font.SysFont("Arial", 46)
@@ -113,8 +111,6 @@ class GameEngine:
                     return
 
     def handle_input(self):
-        # Reserved for continuously-held-key input; every action here
-        # is a discrete click/keypress, handled in handle_event.
         pass
 
     def update(self):
@@ -168,8 +164,6 @@ class GameEngine:
         text_rect = text_surf.get_rect(center=(self.width // 2, self.height // 2))
         screen.blit(text_surf, text_rect)
 
-        # A valid result belongs to the round just completed; retries stay
-        # on the next uncompleted round without increasing the count.
         round_num = len(self.reaction_times)
         if self.round.state != "result":
             round_num += 1
