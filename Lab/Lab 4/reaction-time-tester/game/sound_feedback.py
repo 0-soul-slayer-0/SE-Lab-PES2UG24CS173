@@ -20,7 +20,6 @@ class SoundFeedback:
                 "session_end": self._make_sound([(523, 0.12), (659, 0.12), (784, 0.20)]),
             }
         except pygame.error:
-            # A missing audio device must not prevent the game from running.
             self._sounds = {}
 
     @property
@@ -35,7 +34,6 @@ class SoundFeedback:
             count = round(sample_rate * duration)
             fade_samples = round(sample_rate * 0.01)
             for index in range(count):
-                # Fade each note's edges to avoid clicks between tones.
                 envelope = min(1.0, index / fade_samples, (count - 1 - index) / fade_samples)
                 amplitude = int(32767 * 0.25 * envelope *
                                 math.sin(2 * math.pi * frequency * index / sample_rate))
@@ -55,5 +53,4 @@ class SoundFeedback:
             try:
                 sound.play()
             except pygame.error:
-                # Continue silently if audio stops being available mid-session.
                 self._sounds = {}
